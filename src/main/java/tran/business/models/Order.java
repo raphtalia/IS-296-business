@@ -9,6 +9,7 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "orders")
+// FIXME: Unused model
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

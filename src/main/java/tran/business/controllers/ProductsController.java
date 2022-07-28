@@ -26,6 +26,7 @@ public class ProductsController {
         return productsService.getProducts();
     }
 
+    // FIXME: Incorrect route "/products/{productId}"
     @RequestMapping(value = "/{productId}", method = RequestMethod.PUT)
     public Product readProducts(@PathVariable long productId, @RequestBody Product productDetails) {
         return productsService.updateProduct(productId, productDetails);

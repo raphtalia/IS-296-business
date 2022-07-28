@@ -1,6 +1,7 @@
 drop table if exists user_role;
 drop table if exists app_role;
 drop table if exists app_user;
+-- FIXME: Missing products table
 drop table if exists products;
 
 create table app_role (

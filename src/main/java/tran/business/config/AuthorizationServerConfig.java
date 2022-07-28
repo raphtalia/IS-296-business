@@ -47,6 +47,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    // FIXME: Missing PasswordEncoder
     private PasswordEncoder passwordEncoder;
 
     @Override
