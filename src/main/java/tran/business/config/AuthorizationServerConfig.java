@@ -2,8 +2,10 @@ package tran.business.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -44,12 +46,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public void configure(ClientDetailsServiceConfigurer configurer) throws Exception {
         configurer
                 .inMemory()
                 .withClient(clientId)
-                .secret("{noop}" + clientSecret)
+                .secret(passwordEncoder.encode(clientSecret))
                 .authorizedGrantTypes(grantType)
                 .scopes(scopeRead, scopeWrite)
                 .resourceIds(resourceIds);
@@ -63,5 +68,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .accessTokenConverter(accessTokenConverter)
                 .tokenEnhancer(enhancerChain)
                 .authenticationManager(authenticationManager);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new PasswordEncoder() {
+            @Override
+            public String encode(CharSequence rawPassword) {
+                return rawPassword.toString();
+            }
+
+            @Override
+            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+                return rawPassword.toString().equals(encodedPassword);
+            }
+        };
     }
 }
