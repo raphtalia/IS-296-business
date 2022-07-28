@@ -26,12 +26,12 @@ public class ProductsController {
         return productsService.getProducts();
     }
 
-    @RequestMapping(value = "products/{productId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{productId}", method = RequestMethod.PUT)
     public Product readProducts(@PathVariable long productId, @RequestBody Product productDetails) {
         return productsService.updateProduct(productId, productDetails);
     }
 
-    @RequestMapping(value = "products/{productId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{productId}", method = RequestMethod.DELETE)
     public void deleteProduct(@PathVariable long productId) {
         productsService.deleteProduct(productId);
     }
