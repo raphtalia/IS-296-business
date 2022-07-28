@@ -49,7 +49,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         configurer
                 .inMemory()
                 .withClient(clientId)
-                .secret(clientSecret)
+                .secret("{noop}" + clientSecret)
                 .authorizedGrantTypes(grantType)
                 .scopes(scopeRead, scopeWrite)
                 .resourceIds(resourceIds);
